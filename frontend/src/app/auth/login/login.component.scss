@@ -1,0 +1,126 @@
+// src/app/auth/login/login.component.scss
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background-image: 
+    repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(0,0,0,0.02) 35px, rgba(0,0,0,0.02) 70px);
+  padding: 2rem;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.login-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 
+    0 10px 30px rgba(0,0,0,0.1),
+    0 0 0 1px rgba(0,0,0,0.05);
+  width: 100%;
+  max-width: 420px;
+  border-top: 6px solid #FFCC00;
+  position: relative;
+  animation: fadeInUp 0.6s ease-out;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(to right, #000 33%, #DD0000 33%, #DD0000 66%, #FFCC00 66%);
+  }
+}
+
+h2 {
+  text-align: center;
+  margin: 0 0 2rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: #000;
+  font-weight: 700;
+}
+
+.form-group { margin-bottom: 1.25rem; }
+label { font-weight: 600; color: #212529; margin-bottom: 0.5rem; display: block; }
+.form-control {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+
+  &:focus {
+    border-color: #FFCC00;
+    box-shadow: 0 0 0 4px rgba(255,204,0,0.2);
+  }
+}
+.is-invalid { border-color: #DD0000 !important; background: #fff5f5; }
+
+.error {
+  color: #DD0000;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+.error-message {
+  background: #ffe6e6;
+  color: #a00;
+  padding: 0.75rem;
+  border-radius: 6px;
+  text-align: center;
+  margin: 1rem 0;
+  border: 1px solid #ffb3b3;
+}
+
+.btn-primary {
+  background: #000;
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 100%;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  transition: all 0.3s;
+  border: none;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    background: #DD0000;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(221,0,0,0.3);
+  }
+
+  &:disabled {
+    background: #666;
+    cursor: not-allowed;
+  }
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: #555;
+
+  a {
+    color: #FFCC00;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px dotted #FFCC00;
+
+    &:hover {
+      color: #DD0000;
+      border-color: #DD0000;
+    }
+  }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

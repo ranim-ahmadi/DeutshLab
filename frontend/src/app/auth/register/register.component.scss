@@ -1,0 +1,226 @@
+// src/app/auth/register/register.component.scss
+
+// === COULEURS ALLEMANDES ===
+$black: #000000;
+$red: #DD0000;
+$gold: #FFCC00;
+$light: #f8f9fa;
+$white: #ffffff;
+$dark: #212529;
+
+// === TYPOGRAPHIE ===
+$font-heading: 'Playfair Display', serif;
+$font-body: 'Open Sans', sans-serif;
+
+// === FOND TEXTURÉ SUBTIL ===
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #{$light} 0%, #f0f0f0 100%);
+  background-image: 
+    repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,204,0,0.03) 35px, rgba(255,204,0,0.03) 70px),
+    repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(221,0,0,0.03) 35px, rgba(221,0,0,0.03) 70px);
+  padding: 2rem;
+  font-family: $font-body;
+}
+
+// === CARTE D'INSCRIPTION ===
+.register-card {
+  background: $white;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 
+    0 10px 30px rgba(0,0,0,0.1),
+    0 0 0 1px rgba(0,0,0,0.05);
+  width: 100%;
+  max-width: 520px;
+  border-top: 6px solid $gold;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(to right, $black 33%, $red 33%, $red 66%, $gold 66%);
+  }
+}
+
+h2 {
+  text-align: center;
+  margin: 0 0 1.5rem;
+  font-family: $font-heading;
+  font-size: 2rem;
+  color: $black;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+
+  span {
+    color: $red;
+  }
+}
+
+// === FORMULAIRE ===
+.form-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+
+  .form-group {
+    flex: 1;
+    min-width: 200px;
+  }
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: $dark;
+  font-size: 0.95rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: $white;
+
+  &:focus {
+    outline: none;
+    border-color: $gold;
+    box-shadow: 0 0 0 4px rgba(255,204,0,0.2);
+    transform: translateY(-1px);
+  }
+}
+
+.is-invalid {
+  border-color: $red !important;
+  background-color: #fff5f5;
+}
+
+// === MESSAGES ===
+.error, .error-message, .success-message {
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0;
+  border-radius: 6px;
+}
+
+.error {
+  color: $red;
+}
+
+.error-message {
+  background: #ffe6e6;
+  color: #a00;
+  padding: 0.75rem;
+  text-align: center;
+  border: 1px solid #ffb3b3;
+}
+
+.success-message {
+  background: #fff8e6;
+  color: #b37400;
+  padding: 0.75rem;
+  text-align: center;
+  border: 1px solid $gold;
+}
+
+// === BOUTON ===
+.btn-primary {
+  background: $red;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &:hover:not(:disabled) {
+    background: darken($red, 8%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(221,0,0,0.3);
+  }
+
+  &:disabled {
+    background: #aaa;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  span {
+    position: relative;
+    z-index: 2;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 0; height: 0;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  &:active::after {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+// === LIEN ===
+.login-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: #555;
+
+  a {
+    color: $gold;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px dotted $gold;
+    transition: all 0.2s;
+
+    &:hover {
+      color: $red;
+      border-color: $red;
+    }
+  }
+}
+
+// === ANIMATION D'APPARITION ===
+.register-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
