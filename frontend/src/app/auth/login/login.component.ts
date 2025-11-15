@@ -1,5 +1,8 @@
+// src/app/auth/login/login.component.ts
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,36 +14,46 @@ export class LoginComponent {
   loading = false;
   errorMessage: string | null = null;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
-  // Raccourci pour accéder aux contrôles dans le template
   get f() {
     return this.loginForm.controls;
   }
 
   onSubmit() {
-    if (this.loginForm.invalid) {
-      return;
-    }
+    if (this.loginForm.invalid) return;
 
     this.loading = true;
     this.errorMessage = null;
 
-    // Simulation d'appel API (à remplacer par ton AuthService)
-    setTimeout(() => {
-      const { email, password } = this.loginForm.value;
-      if (email === 'test@deutschlab.com' && password === '123456') {
-        console.log('Connexion réussie !');
-        // Rediriger vers le profil ou dashboard
-      } else {
-        this.errorMessage = 'Email ou mot de passe incorrect.';
+    const { email, password } = this.loginForm.value;
+
+    this.authService.login(email, password).subscribe({
+      next: (response) => {
+        console.log('Connexion réussie !', response);
+        // Stocker le token (si tu veux persister la session)
+        localStorage.setItem('access_token', response.access);
+        localStorage.setItem('refresh_token', response.refresh);
+
+        // Redirection vers le profil
+        this.router.navigate(['/profile']);
+        this.loading = false;
+      },
+      error: (err) => {
+        this.errorMessage = err.error?.non_field_errors?.[0] 
+          || err.error?.detail 
+          || 'Email ou mot de passe incorrect.';
+        this.loading = false;
       }
-      this.loading = false;
-    }, 1000);
+    });
   }
 }

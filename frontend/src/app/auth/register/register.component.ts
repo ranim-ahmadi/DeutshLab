@@ -1,11 +1,8 @@
+// src/app/auth/register/register.component.ts
 import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  AbstractControl,
-  ValidationErrors
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -18,68 +15,48 @@ export class RegisterComponent {
   errorMessage: string | null = null;
   successMessage: string | null = null;
 
-  constructor(private fb: FormBuilder) {
-    this.registerForm = this.fb.group(
-      {
-        first_name: ['', [Validators.required, Validators.minLength(2)]],
-        last_name: ['', [Validators.required, Validators.minLength(2)]],
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(6)]],
-        password2: ['', [Validators.required]]
-      },
-      {
-        validators: this.passwordMatchValidator // Validateur global
-      }
-    );
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.registerForm = this.fb.group({
+      first_name: ['', [Validators.required, Validators.minLength(2)]],
+      last_name: ['', [Validators.required, Validators.minLength(2)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      password2: ['', [Validators.required]],
+      level: ['A1'] // Optionnel
+    }, { validators: this.passwordMatchValidator });
   }
 
-  // Raccourci pour accéder aux contrôles
-  get f() {
-    return this.registerForm.controls;
-  }
+  get f() { return this.registerForm.controls; }
 
-  // Validateur personnalisé : mot de passe = confirmation
   passwordMatchValidator = (control: AbstractControl): ValidationErrors | null => {
     const password = control.get('password');
     const password2 = control.get('password2');
-
-    if (password && password2 && password.value !== password2.value) {
-      control.get('password2')?.setErrors({ passwordMismatch: true });
-      return { passwordMismatch: true };
-    } else {
-      const errors = control.get('password2')?.errors;
-      if (errors) {
-        delete errors['passwordMismatch'];
-        if (Object.keys(errors).length === 0) {
-          control.get('password2')?.setErrors(null);
-        } else {
-          control.get('password2')?.setErrors(errors);
-        }
-      }
-      return null;
-    }
+    return password && password2 && password.value !== password2.value
+      ? { passwordMismatch: true }
+      : null;
   };
 
   onSubmit() {
-    if (this.registerForm.invalid) {
-      return;
-    }
+    if (this.registerForm.invalid) return;
 
     this.loading = true;
     this.errorMessage = null;
     this.successMessage = null;
 
-    // Simulation d'inscription
-    setTimeout(() => {
-      const data = this.registerForm.value;
-      console.log('Inscription soumise', data);
-
-      // Simule succès
-      this.successMessage = 'Inscription réussie ! Redirection...';
-      this.loading = false;
-
-      // Optionnel : rediriger après 2 secondes
-      // setTimeout(() => this.router.navigate(['/login']), 2000);
-    }, 1000);
+    this.authService.register(this.registerForm.value).subscribe({
+      next: (response) => {
+        this.successMessage = 'Inscription réussie ! Redirection...';
+        this.loading = false;
+        setTimeout(() => this.router.navigate(['/login']), 1500);
+      },
+      error: (err) => {
+        this.errorMessage = err.error?.email?.[0] || 'Erreur serveur';
+        this.loading = false;
+      }
+    });
   }
 }

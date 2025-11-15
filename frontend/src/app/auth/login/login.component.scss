@@ -1,19 +1,32 @@
-// src/app/auth/login/login.component.scss
+// === COULEURS ALLEMANDES ===
+$black: #000000;
+$red: #DD0000;
+$gold: #FFCC00;
+$light: #f8f9fa;
+$white: #ffffff;
+$dark: #212529;
 
+// === TYPOGRAPHIE ===
+$font-heading: 'Playfair Display', serif;
+$font-body: 'Open Sans', sans-serif;
+
+// === FOND TEXTURÉ SUBTIL ===
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: linear-gradient(135deg, $light 0%, #f0f0f0 100%);
   background-image: 
-    repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(0,0,0,0.02) 35px, rgba(0,0,0,0.02) 70px);
+    repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,204,0,0.03) 35px, rgba(255,204,0,0.03) 70px),
+    repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(221,0,0,0.03) 35px, rgba(221,0,0,0.03) 70px);
   padding: 2rem;
-  font-family: 'Open Sans', sans-serif;
+  font-family: $font-body;
 }
 
+// === CARTE ===
 .login-card {
-  background: white;
+  background: $white;
   padding: 2.5rem;
   border-radius: 16px;
   box-shadow: 
@@ -21,7 +34,7 @@
     0 0 0 1px rgba(0,0,0,0.05);
   width: 100%;
   max-width: 420px;
-  border-top: 6px solid #FFCC00;
+  border-top: 6px solid $gold;
   position: relative;
   animation: fadeInUp 0.6s ease-out;
 
@@ -30,21 +43,22 @@
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 6px;
-    background: linear-gradient(to right, #000 33%, #DD0000 33%, #DD0000 66%, #FFCC00 66%);
+    background: linear-gradient(to right, $black 33%, $red 33%, $red 66%, $gold 66%);
   }
 }
 
 h2 {
   text-align: center;
   margin: 0 0 2rem;
-  font-family: 'Playfair Display', serif;
+  font-family: $font-heading;
   font-size: 2rem;
-  color: #000;
+  color: $black;
   font-weight: 700;
 }
 
+// === FORM ===
 .form-group { margin-bottom: 1.25rem; }
-label { font-weight: 600; color: #212529; margin-bottom: 0.5rem; display: block; }
+label { font-weight: 600; color: $dark; margin-bottom: 0.5rem; display: block; font-size: 0.95rem; }
 .form-control {
   width: 100%;
   padding: 0.875rem 1rem;
@@ -54,18 +68,19 @@ label { font-weight: 600; color: #212529; margin-bottom: 0.5rem; display: block;
   transition: all 0.3s ease;
 
   &:focus {
-    border-color: #FFCC00;
+    border-color: $gold;
     box-shadow: 0 0 0 4px rgba(255,204,0,0.2);
   }
 }
-.is-invalid { border-color: #DD0000 !important; background: #fff5f5; }
+.is-invalid { border-color: $red !important; background: #fff5f5; }
 
 .error {
-  color: #DD0000;
+  color: $red;
   font-size: 0.875rem;
   margin-top: 0.5rem;
 }
 
+// === MESSAGES ===
 .error-message {
   background: #ffe6e6;
   color: #a00;
@@ -76,8 +91,9 @@ label { font-weight: 600; color: #212529; margin-bottom: 0.5rem; display: block;
   border: 1px solid #ffb3b3;
 }
 
+// === BOUTON ===
 .btn-primary {
-  background: #000;
+  background: $black;
   color: white;
   padding: 1rem;
   border-radius: 8px;
@@ -90,7 +106,7 @@ label { font-weight: 600; color: #212529; margin-bottom: 0.5rem; display: block;
   cursor: pointer;
 
   &:hover:not(:disabled) {
-    background: #DD0000;
+    background: $red;
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(221,0,0,0.3);
   }
@@ -101,6 +117,7 @@ label { font-weight: 600; color: #212529; margin-bottom: 0.5rem; display: block;
   }
 }
 
+// === LIEN ===
 .register-link {
   text-align: center;
   margin-top: 1.5rem;
@@ -108,18 +125,19 @@ label { font-weight: 600; color: #212529; margin-bottom: 0.5rem; display: block;
   color: #555;
 
   a {
-    color: #FFCC00;
+    color: $gold;
     font-weight: 600;
     text-decoration: none;
-    border-bottom: 1px dotted #FFCC00;
+    border-bottom: 1px dotted $gold;
 
     &:hover {
-      color: #DD0000;
-      border-color: #DD0000;
+      color: $red;
+      border-color: $red;
     }
   }
 }
 
+// === ANIMATION ===
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }

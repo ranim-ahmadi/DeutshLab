@@ -2,9 +2,7 @@
   <div class="register-card">
     <h2>Inscription à DeutschLab</h2>
     
-    <!-- OUVERTURE DU FORMULAIRE -->
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      
       <div class="form-row">
         <div class="form-group">
           <label for="first_name">Prénom</label>
@@ -94,9 +92,7 @@
         <span *ngIf="!loading">S'inscrire</span>
         <span *ngIf="loading">Inscription...</span>
       </button>
-      
     </form>
-    <!-- FERMETURE DU FORMULAIRE -->
 
     <p class="login-link">
       Déjà un compte ? <a routerLink="/login">Se connecter</a>
